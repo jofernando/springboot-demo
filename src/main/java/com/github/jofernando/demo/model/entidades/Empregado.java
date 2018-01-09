@@ -28,6 +28,7 @@ public class Empregado extends Entidade {
     private Setor setor;
 
     public Empregado() {
+        setor = new Setor();
     }
 
     public Empregado(String nome, String cpf, String email, BigDecimal salario, Setor setor) {
