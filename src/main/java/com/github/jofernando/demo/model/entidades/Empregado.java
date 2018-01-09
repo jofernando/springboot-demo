@@ -8,6 +8,11 @@ package com.github.jofernando.demo.model.entidades;
 import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.br.CPF;
 
 /**
  *
@@ -33,6 +38,7 @@ public class Empregado extends Entidade {
         this.setor = setor;
     }
 
+    @NotBlank(message = "Informe um nome")
     public String getNome() {
         return nome;
     }
@@ -41,6 +47,7 @@ public class Empregado extends Entidade {
         this.nome = nome;
     }
 
+    @CPF(message = "CPF inválido")
     public String getCpf() {
         return cpf;
     }
@@ -49,6 +56,8 @@ public class Empregado extends Entidade {
         this.cpf = cpf;
     }
 
+    @Email(message = "Email inválido")
+    @NotNull(message = "Informe um email")
     public String getEmail() {
         return email;
     }
@@ -57,6 +66,7 @@ public class Empregado extends Entidade {
         this.email = email;
     }
 
+    @Range(min = 954, message = "Valor informado está abaixo do salário minimo")
     public BigDecimal getSalario() {
         return salario;
     }
@@ -66,6 +76,7 @@ public class Empregado extends Entidade {
     }
 
     @ManyToOne
+    @NotNull(message = "Informe um setor")
     public Setor getSetor() {
         return setor;
     }
