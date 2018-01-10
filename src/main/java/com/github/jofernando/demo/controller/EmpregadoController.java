@@ -39,7 +39,7 @@ public class EmpregadoController implements Serializable {
         empregados.saveAndFlush(empregado);
     }
 
-    public List<Empregado> buscarTodos() {
+    public List<Empregado> buscarTodosAction() {
         return empregados.findAll();
     }
 

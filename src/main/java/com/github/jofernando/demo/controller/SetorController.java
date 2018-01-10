@@ -39,7 +39,7 @@ public class SetorController implements Serializable {
         setores.saveAndFlush(setor);
     }
 
-    public List<Setor> buscarTodos() {
+    public List<Setor> buscarTodosAction() {
         return setores.findAll();
     }
 
