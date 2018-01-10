@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title></title>
+    </h:head>
+    <h:body>
+        <h:form id="cadastro">
+            <p:growl autoUpdate="true"/>
+            <p:fieldset>
+                <center>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="nome" value="Nome"/>
+                        <p:inputText id="nome" value="#{empregadoController.empregado.nome}"/>
+                        <p:outputLabel for="setor" value="Setor"/>
+                        <h:panelGroup>
+                            <p:selectOneMenu converter="#{setorConverter}" id="setor" value="#{empregadoController.empregado.setor}">
+                                <f:selectItems value="#{setorController.buscarTodosAction()}" var="setor" itemLabel="#{setor.nome}" itemValue="#{setor}"/>
+                            </p:selectOneMenu>
+                            <p:commandButton icon="ui-icon-plusthick" title="Adicionar" actionListener="#{setorController.novoSetor()}" oncomplete="PF('widgetDialogoCadastroSetor').show()" process="@this" update="cadastroSetor"/>
+                        </h:panelGroup>
+                        <p:outputLabel for="salario" value="Salário"/>
+                        <p:inputNumber id="salario" value="#{empregadoController.empregado.salario}"/>
+                        <p:outputLabel for="cpf" value="CPF"/>
+                        <p:inputMask mask="999.999.999-99" id="cpf" value="#{empregadoController.empregado.cpf}"/>
+                        <p:outputLabel for="email" value="Email"/>
+                        <p:inputText id="email" value="#{empregadoController.empregado.email}"/>
+                    </p:panelGrid>
+                    <br/>
+                    <p:commandButton value="Salvar" action="#{empregadoController.salvarAction()}" update="cadastro listagem"/>
+                    <p:commandButton value="Limpar campos" action="#{empregadoController.novoEmpregado()}" update="cadastro" process="@this">
+                        <p:resetInput target="cadastro"/>
+                    </p:commandButton>
+                </center>
+            </p:fieldset>
+        </h:form>
+        <br/>
+        <h:form id="listagem">
+            <p:dataTable value="#{empregadoController.buscarTodosAction()}" var="empregado" emptyMessage="Nenhum empregado cadastrado">
+                <p:column headerText="Nome">#{empregado.nome}</p:column>
+                <p:column headerText="Setor">#{empregado.setor.nome}</p:column>
+                <p:column headerText="Salário">#{empregado.salario}</p:column>
+                <p:column headerText="CPF">#{empregado.cpf}</p:column>
+                <p:column headerText="Email">#{empregado.email}</p:column>
+                <p:column headerText="Opções">
+                    <center>
+                        <p:commandButton icon="ui-icon-pencil" update="cadastro" title="Editar">
+                            <f:setPropertyActionListener target="#{empregadoController.empregado}" value="#{empregado}"/>
+                        </p:commandButton>
+                        <p:commandButton icon="ui-icon-search" oncomplete="PF('widgetvarDialogoVisualizarEmpregado').show()" title="Visualizar" update="listagem:idDialogoVisualizarEmpregado">
+                            <f:setPropertyActionListener target="#{empregadoController.empregado}" value="#{empregado}"/>
+                        </p:commandButton>
+                        <p:commandButton icon="ui-icon-trash" action="#{empregadoController.deletarAction()}" title="Deletar" update="listagem">
+                            <f:setPropertyActionListener target="#{empregadoController.empregado}" value="#{empregado}"/>
+                        </p:commandButton>
+                    </center>
+                </p:column>
+            </p:dataTable>
+            <p:dialog closeOnEscape="true" resizable="false" draggable="false" modal="true" widgetVar="widgetvarDialogoVisualizarEmpregado" id="idDialogoVisualizarEmpregado" header="Informações do empregado">
+                <center>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Nome"/>
+                        <p:outputLabel value="#{empregadoController.empregado.nome}"/>
+                        <p:outputLabel value="Setor"/>
+                        <p:outputLabel value="#{empregadoController.empregado.setor.nome}"/>
+                        <p:outputLabel value="Salário"/>
+                        <p:outputLabel value="#{empregadoController.empregado.salario}"/>
+                        <p:outputLabel value="CPF"/>
+                        <p:outputLabel value="#{empregadoController.empregado.cpf}"/>
+                        <p:outputLabel value="Email"/>
+                        <p:outputLabel value="#{empregadoController.empregado.email}"/>
+                    </p:panelGrid>
+                </center>
+            </p:dialog>
+        </h:form>
+        <h:form id='cadastroSetor'>
+            <p:dialog header="Cadastro de setor" modal="true" resizable="false" draggable="false" closable="false" closeOnEscape="true" widgetVar="widgetDialogoCadastroSetor" id="idDialogoCadastroSetor">
+                <p:panelGrid columns="2" id="panelGrid">
+                    <p:outputLabel for="nomeSetor" value="Nome"/>
+                    <p:inputText id="nomeSetor" value="#{setorController.setor.nome}"/>
+                </p:panelGrid>
+                <br/>
+                <center>
+                    <p:commandButton value="Cadastrar" actionListener="#{setorController.salvarAction()}" update='cadastroSetor:panelGrid cadastro:setor'/>
+                    <p:commandButton value="Cancelar" actionListener="#{setorController.novoSetor()}" update="cadastroSetor" process="@this">
+                        <p:resetInput target="cadastroSetor"/>
+                    </p:commandButton>
+                </center>
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+
