@@ -5,6 +5,7 @@
  */
 package com.github.jofernando.demo.model.entidades;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -17,6 +18,7 @@ public class Setor extends Entidade {
 
     private String nome;
 
+    @Column(unique = true)
     @NotBlank(message = "Informe um nome")
     public String getNome() {
         return nome;

@@ -6,6 +6,7 @@
 package com.github.jofernando.demo.model.entidades;
 
 import java.math.BigDecimal;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
@@ -48,6 +49,7 @@ public class Empregado extends Entidade {
         this.nome = nome;
     }
 
+    @Column(unique = true)
     @CPF(message = "CPF inválido")
     public String getCpf() {
         return cpf;
@@ -57,8 +59,9 @@ public class Empregado extends Entidade {
         this.cpf = cpf;
     }
 
+    @Column(unique = true)
+    @NotBlank(message = "Informe um email")
     @Email(message = "Email inválido")
-    @NotNull(message = "Informe um email")
     public String getEmail() {
         return email;
     }
@@ -67,6 +70,7 @@ public class Empregado extends Entidade {
         this.email = email;
     }
 
+    @NotNull(message = "Informe um salário")
     @Range(min = 954, message = "Valor informado está abaixo do salário minimo")
     public BigDecimal getSalario() {
         return salario;
