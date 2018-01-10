@@ -9,6 +9,8 @@ import com.github.jofernando.demo.model.entidades.Setor;
 import com.github.jofernando.demo.model.repository.Setores;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -29,14 +31,19 @@ public class SetorController implements Serializable {
 
     public void salvarAction() {
         setores.save(setor);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Setor salvo"));
+        novoSetor();
     }
 
     public void deletarAction() {
         setores.delete(setor);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Setor deletado"));
     }
 
     public void alterarAction() {
         setores.saveAndFlush(setor);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Setor alterado"));
+        novoSetor();
     }
 
     public List<Setor> buscarTodosAction() {

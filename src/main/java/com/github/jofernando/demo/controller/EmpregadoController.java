@@ -9,6 +9,8 @@ import com.github.jofernando.demo.model.entidades.Empregado;
 import com.github.jofernando.demo.model.repository.Empregados;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -29,14 +31,19 @@ public class EmpregadoController implements Serializable {
 
     public void salvarAction() {
         empregados.save(empregado);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empregado salvo"));
+        novoEmpregado();
     }
 
     public void deletarAction() {
         empregados.delete(empregado);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empregado deletado"));
     }
 
     public void alterarAction() {
         empregados.saveAndFlush(empregado);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empregado alterado"));
+        novoEmpregado();
     }
 
     public List<Empregado> buscarTodosAction() {
