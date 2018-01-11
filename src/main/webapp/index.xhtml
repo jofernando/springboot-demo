@@ -40,12 +40,20 @@
         </h:form>
         <br/>
         <h:form id="listagem">
-            <p:dataTable value="#{empregadoController.buscarTodosAction()}" var="empregado" emptyMessage="Nenhum empregado cadastrado">
-                <p:column headerText="Nome">#{empregado.nome}</p:column>
-                <p:column headerText="Setor">#{empregado.setor.nome}</p:column>
-                <p:column headerText="Salário">#{empregado.salario}</p:column>
-                <p:column headerText="CPF">#{empregado.cpf}</p:column>
-                <p:column headerText="Email">#{empregado.email}</p:column>
+            <p:dataTable widgetVar="dataListagem" value="#{empregadoController.buscarTodosAction()}" var="empregado" emptyMessage="Nenhum empregado cadastrado">
+                <p:column headerText="Nome" filterBy="#{empregado.nome}">#{empregado.nome}</p:column>
+                <p:column headerText="Setor" filterBy="#{empregado.setor}">
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('dataListagem').filter()">
+                            <f:selectItem itemValue="#{null}" itemLabel="Todos" noSelectionOption="true"/>
+                            <f:selectItems value="#{setorController.buscarTodosAction()}" var="setor" itemLabel="#{setor.nome}" itemValue="#{setor}"/>
+                        </p:selectOneMenu>
+                    </f:facet>
+                    #{empregado.setor.nome}
+                </p:column>
+                <p:column headerText="Salário" sortBy="#{empregado.salario}">#{empregado.salario}</p:column>
+                <p:column headerText="CPF" filterBy="#{empregado.cpf}" filterMatchMode="contains">#{empregado.cpf}</p:column>
+                <p:column headerText="Email" filterBy="#{empregado.email}">#{empregado.email}</p:column>
                 <p:column headerText="Opções">
                     <center>
                         <p:commandButton icon="ui-icon-pencil" update="cadastro" title="Editar">
