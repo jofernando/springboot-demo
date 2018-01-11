@@ -77,7 +77,7 @@
             </p:dialog>
         </h:form>
         <h:form id='cadastroSetor'>
-            <p:dialog header="Cadastro de setor" modal="true" resizable="false" draggable="false" closable="false" closeOnEscape="true" widgetVar="widgetDialogoCadastroSetor" id="idDialogoCadastroSetor">
+            <p:dialog header="Cadastro de setor" modal="true" resizable="false" draggable="false" closable="true" closeOnEscape="true" widgetVar="widgetDialogoCadastroSetor" id="idDialogoCadastroSetor">
                 <p:panelGrid columns="2" id="panelGrid">
                     <p:outputLabel for="nomeSetor" value="Nome"/>
                     <p:inputText id="nomeSetor" value="#{setorController.setor.nome}"/>
@@ -85,7 +85,7 @@
                 <br/>
                 <center>
                     <p:commandButton value="Cadastrar" actionListener="#{setorController.salvarAction()}" update='cadastroSetor:panelGrid cadastro:setor'/>
-                    <p:commandButton value="Cancelar" actionListener="#{setorController.novoSetor()}" update="cadastroSetor" process="@this">
+                    <p:commandButton value="Fechar" actionListener="#{setorController.novoSetor()}" update="cadastroSetor" process="@this">
                         <p:resetInput target="cadastroSetor"/>
                     </p:commandButton>
                 </center>
