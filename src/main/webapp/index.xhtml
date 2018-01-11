@@ -51,9 +51,7 @@
                     </f:facet>
                     #{empregado.setor.nome}
                 </p:column>
-                <p:column headerText="Salário" sortBy="#{empregado.salario}">#{empregado.salario}</p:column>
                 <p:column headerText="CPF" filterBy="#{empregado.cpf}" filterMatchMode="contains">#{empregado.cpf}</p:column>
-                <p:column headerText="Email" filterBy="#{empregado.email}">#{empregado.email}</p:column>
                 <p:column headerText="Opções">
                     <center>
                         <p:commandButton icon="ui-icon-pencil" update="cadastro" title="Editar">
