@@ -58,7 +58,7 @@
                             <f:setPropertyActionListener target="#{empregadoController.empregado}" value="#{empregado}"/>
                         </p:commandButton>
                         <p:commandButton icon="ui-icon-search" oncomplete="PF('widgetvarDialogoVisualizarEmpregado').show()" title="Visualizar" update="listagem:idDialogoVisualizarEmpregado">
-                            <f:setPropertyActionListener target="#{empregadoController.empregadoView}" value="#{empregado}"/>
+                            <f:setPropertyActionListener target="#{empregadoController.empregado}" value="#{empregado}"/>
                         </p:commandButton>
                         <p:commandButton icon="ui-icon-trash" action="#{empregadoController.deletarAction()}" title="Deletar" update="listagem">
                             <f:setPropertyActionListener target="#{empregadoController.empregado}" value="#{empregado}"/>
@@ -70,15 +70,15 @@
                 <center>
                     <p:panelGrid columns="2">
                         <p:outputLabel value="Nome"/>
-                        <p:outputLabel value="#{empregadoController.empregadoView.nome}"/>
+                        <p:outputLabel value="#{empregadoController.empregado.nome}"/>
                         <p:outputLabel value="Setor"/>
-                        <p:outputLabel value="#{empregadoController.empregadoView.setor.nome}"/>
+                        <p:outputLabel value="#{empregadoController.empregado.setor.nome}"/>
                         <p:outputLabel value="Salário"/>
-                        <p:outputLabel value="#{empregadoController.empregadoView.salario}"/>
+                        <p:outputLabel value="#{empregadoController.empregado.salario}"/>
                         <p:outputLabel value="CPF"/>
-                        <p:outputLabel value="#{empregadoController.empregadoView.cpf}"/>
+                        <p:outputLabel value="#{empregadoController.empregado.cpf}"/>
                         <p:outputLabel value="Email"/>
-                        <p:outputLabel value="#{empregadoController.empregadoView.email}"/>
+                        <p:outputLabel value="#{empregadoController.empregado.email}"/>
                     </p:panelGrid>
                 </center>
             </p:dialog>

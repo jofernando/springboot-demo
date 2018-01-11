@@ -24,7 +24,6 @@ public class EmpregadoController implements Serializable {
     @Autowired
     private Empregados empregados;
     private Empregado empregado;
-    private Empregado empregadoView;
 
     public EmpregadoController() {
         this.empregado = new Empregado();
@@ -57,14 +56,6 @@ public class EmpregadoController implements Serializable {
 
     public void setEmpregado(Empregado empregado) {
         this.empregado = empregado;
-    }
-
-    public Empregado getEmpregadoView() {
-        return empregadoView;
-    }
-
-    public void setEmpregadoView(Empregado empregadoView) {
-        this.empregadoView = empregadoView;
     }
 
     public void novoEmpregado() {
