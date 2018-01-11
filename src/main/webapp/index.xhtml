@@ -18,6 +18,7 @@
                         <p:outputLabel for="setor" value="Setor"/>
                         <h:panelGroup>
                             <p:selectOneMenu converter="#{setorConverter}" id="setor" value="#{empregadoController.empregado.setor}">
+                                <f:selectItem itemValue="#{null}" itemLabel="Selecione"/>
                                 <f:selectItems value="#{setorController.buscarTodosAction()}" var="setor" itemLabel="#{setor.nome}" itemValue="#{setor}"/>
                             </p:selectOneMenu>
                             <p:commandButton icon="ui-icon-plusthick" title="Adicionar" actionListener="#{setorController.novoSetor()}" oncomplete="PF('widgetDialogoCadastroSetor').show()" process="@this" update="cadastroSetor"/>
