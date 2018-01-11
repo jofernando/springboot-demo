@@ -5,8 +5,8 @@
  */
 package com.github.jofernando.demo.controller;
 
+import com.github.jofernando.demo.model.SetorModel;
 import com.github.jofernando.demo.model.entidades.Setor;
-import com.github.jofernando.demo.model.repository.Setores;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Controller;
 public class SetorController implements Serializable {
 
     @Autowired
-    private Setores setores;
+    private SetorModel model;
     private Setor setor;
 
     public SetorController() {
@@ -30,24 +30,36 @@ public class SetorController implements Serializable {
     }
 
     public void salvarAction() {
-        setores.save(setor);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Setor salvo"));
-        novoSetor();
+        try {
+            model.salvar(setor);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Setor salvo"));
+            novoSetor();
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), null));
+        }
     }
 
     public void deletarAction() {
-        setores.delete(setor);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Setor deletado"));
+        try {
+            model.deletar(setor);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Setor deletado"));
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), null));
+        }
     }
 
     public void alterarAction() {
-        setores.saveAndFlush(setor);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Setor alterado"));
-        novoSetor();
+        try {
+            model.alterar(setor);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Setor alterado"));
+            novoSetor();
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), null));
+        }
     }
 
     public List<Setor> buscarTodosAction() {
-        return setores.findAll();
+        return model.buscarTodos();
     }
 
     public Setor getSetor() {

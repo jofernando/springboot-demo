@@ -5,8 +5,8 @@
  */
 package com.github.jofernando.demo.controller;
 
+import com.github.jofernando.demo.model.EmpregadoModel;
 import com.github.jofernando.demo.model.entidades.Empregado;
-import com.github.jofernando.demo.model.repository.Empregados;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Controller;
 public class EmpregadoController implements Serializable {
 
     @Autowired
-    private Empregados empregados;
+    private EmpregadoModel model;
     private Empregado empregado;
 
     public EmpregadoController() {
@@ -30,24 +30,36 @@ public class EmpregadoController implements Serializable {
     }
 
     public void salvarAction() {
-        empregados.save(empregado);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empregado salvo"));
-        novoEmpregado();
+        try {
+            model.salvar(empregado);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empregado salvo"));
+            novoEmpregado();
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), null));
+        }
     }
 
     public void deletarAction() {
-        empregados.delete(empregado);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empregado deletado"));
+        try {
+            model.deletar(empregado);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empregado deletado"));
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), null));
+        }
     }
 
     public void alterarAction() {
-        empregados.saveAndFlush(empregado);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empregado alterado"));
-        novoEmpregado();
+        try {
+            model.alterar(empregado);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empregado alterado"));
+            novoEmpregado();
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), null));
+        }
     }
 
     public List<Empregado> buscarTodosAction() {
-        return empregados.findAll();
+        return model.buscarTodos();
     }
 
     public Empregado getEmpregado() {
