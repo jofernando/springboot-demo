@@ -27,6 +27,9 @@ public class SetorConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) {
         try {
+            if (string == null || string.trim().length() == 0) {
+                return null;
+            }
             return (Setor) setores.findOne(Long.valueOf(string));
         } catch (NumberFormatException e) {
             System.err.println("Erro: " + e);
@@ -37,6 +40,9 @@ public class SetorConverter implements Converter {
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object o) {
         try {
+            if (o == null) {
+                return "";
+            }
             return "" + ((Setor) o).getId();
         } catch (Exception e) {
             System.err.println("Erro: " + e);
