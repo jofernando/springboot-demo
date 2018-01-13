@@ -24,10 +24,6 @@ public class EmpregadoModel {
     public void salvar(Empregado empregado) throws Exception {
         if (empregado == null) {
             throw new Exception("Empregado não pode ser nulo");
-        } else if (empregados.findByCpf(empregado.getCpf()) != null) {
-            throw new Exception("CPF já cadastrado");
-        } else if (empregados.findByEmail(empregado.getEmail()) != null) {
-            throw new Exception("Email já cadastrado");
         }
         empregados.save(empregado);
     }

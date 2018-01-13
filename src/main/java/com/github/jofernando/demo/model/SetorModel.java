@@ -24,8 +24,6 @@ public class SetorModel {
     public void salvar(Setor setor) throws Exception {
         if (setor == null) {
             throw new Exception("Setor não pode ser nulo");
-        } else if (setores.findByNome(setor.getNome()) != null) {
-            throw new Exception("Setor já cadastrado");
         }
         setores.save(setor);
     }
