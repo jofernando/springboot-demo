@@ -10,15 +10,17 @@ import com.github.jofernando.demo.model.entidades.Setor;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 /**
  *
  * @author fernando
  */
-@Controller
+@Named
+@ViewScoped
 public class SetorController implements Serializable {
 
     @Autowired
