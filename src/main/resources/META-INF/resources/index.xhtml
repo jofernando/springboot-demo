@@ -7,13 +7,21 @@
     <h:head>
         <title></title>
     </h:head>
-    <f:metadata>
-        <f:viewAction action="#{empregadoController.novoEmpregado()}"/>
-    </f:metadata>
     <h:body>
-        <h:form id="cadastro">
-            <p:growl autoUpdate="true"/>
+        <p:growl autoUpdate="true"/>
+        <h:form id="opcoes">
             <p:fieldset>
+                <p:toolbarGroup>
+                    <p:commandButton value="Novo" update="cadastro listagem alteracao">
+                        <f:actionListener binding="#{renderedController.cadastrar()}"/>
+                        <f:actionListener binding="#{empregadoController.novoEmpregado()}"/>
+                    </p:commandButton>
+                    <p:commandButton actionListener="#{renderedController.listar()}" value="Listar" update="cadastro listagem alteracao"/>
+                </p:toolbarGroup>
+            </p:fieldset>
+        </h:form>
+        <h:form id="cadastro">
+            <p:fieldset legend="Cadastro" rendered="#{renderedController.ehCadastro}">
                 <center>
                     <p:panelGrid columns="2">
                         <p:outputLabel for="nome" value="Nome"/>
@@ -34,16 +42,26 @@
                         <p:inputText validator="#{empregadoValidator.emailDuplicadoValidator}" id="email" value="#{empregadoController.empregado.email}"/>
                     </p:panelGrid>
                     <br/>
-                    <p:commandButton value="Salvar" action="#{empregadoController.salvarAction()}" update="cadastro listagem"/>
-                    <p:commandButton value="Limpar campos" action="#{empregadoController.novoEmpregado()}" update="cadastro" process="@this">
-                        <p:resetInput target="cadastro"/>
-                    </p:commandButton>
+                    <p:commandButton value="Salvar" action="#{empregadoController.salvarAction()}" update="cadastro"/>
+                    <p:commandButton value="Limpar campos" action="#{empregadoController.novoEmpregado()}" update="cadastro" immediate="true"/>
                 </center>
             </p:fieldset>
         </h:form>
-        <br/>
+        <h:form id='cadastroSetor'>
+            <p:dialog header="Cadastro de setor" modal="true" resizable="false" draggable="false" closable="true" closeOnEscape="true" widgetVar="widgetDialogoCadastroSetor" id="idDialogoCadastroSetor">
+                <p:panelGrid columns="2" id="panelGrid">
+                    <p:outputLabel for="nomeSetor" value="Nome"/>
+                    <p:inputText validator="#{setorValidator.nomeDuplicadoValidator}" id="nomeSetor" value="#{setorController.setor.nome}"/>
+                </p:panelGrid>
+                <br/>
+                <center>
+                    <p:commandButton value="Cadastrar" actionListener="#{setorController.salvarAction()}" update='cadastroSetor:panelGrid cadastro:setor'/>
+                    <p:commandButton value="Fechar" update="cadastroSetor" immediate="true"/>
+                </center>
+            </p:dialog>
+        </h:form>
         <h:form id="listagem">
-            <p:dataTable widgetVar="dataListagem" value="#{empregadoController.buscarTodosAction()}" var="empregado" emptyMessage="Nenhum empregado cadastrado">
+            <p:dataTable id="tabela" rendered="#{renderedController.ehListagem}" widgetVar="dataListagem" value="#{empregadoController.buscarTodosAction()}" var="empregado" emptyMessage="Nenhum empregado cadastrado">
                 <p:column headerText="Nome" filterBy="#{empregado.nome}">#{empregado.nome}</p:column>
                 <p:column headerText="Setor" filterBy="#{empregado.setor}">
                     <f:facet name="filter">
@@ -57,7 +75,7 @@
                 <p:column headerText="CPF" filterBy="#{empregado.cpf}" filterMatchMode="contains">#{empregado.cpf}</p:column>
                 <p:column headerText="Opções">
                     <center>
-                        <p:commandButton icon="ui-icon-pencil" update="cadastro" title="Editar">
+                        <p:commandButton icon="ui-icon-pencil" title="Editar" actionListener="#{renderedController.editar()}" update="alteracao listagem">
                             <f:setPropertyActionListener target="#{empregadoController.empregado}" value="#{empregado}"/>
                         </p:commandButton>
                         <p:commandButton icon="ui-icon-search" oncomplete="PF('widgetvarDialogoVisualizarEmpregado').show()" title="Visualizar" update="listagem:idDialogoVisualizarEmpregado">
@@ -86,20 +104,31 @@
                 </center>
             </p:dialog>
         </h:form>
-        <h:form id='cadastroSetor'>
-            <p:dialog header="Cadastro de setor" modal="true" resizable="false" draggable="false" closable="true" closeOnEscape="true" widgetVar="widgetDialogoCadastroSetor" id="idDialogoCadastroSetor">
-                <p:panelGrid columns="2" id="panelGrid">
-                    <p:outputLabel for="nomeSetor" value="Nome"/>
-                    <p:inputText validator="#{setorValidator.nomeDuplicadoValidator}" id="nomeSetor" value="#{setorController.setor.nome}"/>
-                </p:panelGrid>
-                <br/>
+        <h:form id="alteracao">
+            <p:fieldset legend="Alteração" rendered="#{renderedController.ehEdicao}">
                 <center>
-                    <p:commandButton value="Cadastrar" actionListener="#{setorController.salvarAction()}" update='cadastroSetor:panelGrid cadastro:setor'/>
-                    <p:commandButton value="Fechar" actionListener="#{setorController.novoSetor()}" update="cadastroSetor" process="@this">
-                        <p:resetInput target="cadastroSetor"/>
-                    </p:commandButton>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="nome" value="Nome"/>
+                        <p:inputText id="nome" value="#{empregadoController.empregado.nome}"/>
+                        <p:outputLabel for="setor" value="Setor"/>
+                        <h:panelGroup>
+                            <p:selectOneMenu converter="#{setorConverter}" id="setor" value="#{empregadoController.empregado.setor}">
+                                <f:selectItem itemValue="#{null}" itemLabel="Selecione"/>
+                                <f:selectItems value="#{setorController.buscarTodosAction()}" var="setor" itemLabel="#{setor.nome}" itemValue="#{setor}"/>
+                            </p:selectOneMenu>
+                        </h:panelGroup>
+                        <p:outputLabel for="salario" value="Salário"/>
+                        <p:inputNumber id="salario" value="#{empregadoController.empregado.salario}"/>
+                        <p:outputLabel for="cpf" value="CPF"/>
+                        <p:inputMask disabled="true" mask="999.999.999-99" id="cpf" value="#{empregadoController.empregado.cpf}"/>
+                        <p:outputLabel for="email" value="Email"/>
+                        <p:inputText disabled="true" id="email" value="#{empregadoController.empregado.email}"/>
+                    </p:panelGrid>
+                    <br/>
+                    <p:commandButton value="Salvar" action="#{empregadoController.alterarAction()}" update="alteracao"/>
+                    <p:commandButton value="Limpar campos" action="#{empregadoController.novoEmpregado()}" update="alteracao" immediate="true"/>
                 </center>
-            </p:dialog>
+            </p:fieldset>
         </h:form>
     </h:body>
 </html>
