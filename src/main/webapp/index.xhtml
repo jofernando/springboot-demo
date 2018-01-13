@@ -29,9 +29,9 @@
                         <p:outputLabel for="salario" value="Salário"/>
                         <p:inputNumber id="salario" value="#{empregadoController.empregado.salario}"/>
                         <p:outputLabel for="cpf" value="CPF"/>
-                        <p:inputMask mask="999.999.999-99" id="cpf" value="#{empregadoController.empregado.cpf}"/>
+                        <p:inputMask validator="#{empregadoValidator.cpfDuplicadoValidator}" mask="999.999.999-99" id="cpf" value="#{empregadoController.empregado.cpf}"/>
                         <p:outputLabel for="email" value="Email"/>
-                        <p:inputText id="email" value="#{empregadoController.empregado.email}"/>
+                        <p:inputText validator="#{empregadoValidator.emailDuplicadoValidator}" id="email" value="#{empregadoController.empregado.email}"/>
                     </p:panelGrid>
                     <br/>
                     <p:commandButton value="Salvar" action="#{empregadoController.salvarAction()}" update="cadastro listagem"/>
@@ -90,7 +90,7 @@
             <p:dialog header="Cadastro de setor" modal="true" resizable="false" draggable="false" closable="true" closeOnEscape="true" widgetVar="widgetDialogoCadastroSetor" id="idDialogoCadastroSetor">
                 <p:panelGrid columns="2" id="panelGrid">
                     <p:outputLabel for="nomeSetor" value="Nome"/>
-                    <p:inputText id="nomeSetor" value="#{setorController.setor.nome}"/>
+                    <p:inputText validator="#{setorValidator.nomeDuplicadoValidator}" id="nomeSetor" value="#{setorController.setor.nome}"/>
                 </p:panelGrid>
                 <br/>
                 <center>
