@@ -14,4 +14,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface Setores extends JpaRepository<Setor, Long> {
 
+    Setor findByNome(String nome);
 }

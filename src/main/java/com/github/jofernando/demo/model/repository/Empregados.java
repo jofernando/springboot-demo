@@ -14,4 +14,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface Empregados extends JpaRepository<Empregado, Long> {
 
+    Empregado findByCpf(String cpf);
+
+    Empregado findByEmail(String email);
 }
