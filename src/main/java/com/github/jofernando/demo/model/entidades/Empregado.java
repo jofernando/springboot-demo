@@ -22,6 +22,7 @@ import org.hibernate.validator.constraints.br.CPF;
 @Entity
 public class Empregado extends Entidade {
 
+    private static final long serialVersionUID = 1L;
     private String nome;
     private String cpf;
     private String email;
@@ -29,7 +30,6 @@ public class Empregado extends Entidade {
     private Setor setor;
 
     public Empregado() {
-        setor = new Setor();
     }
 
     public Empregado(String nome, String cpf, String email, BigDecimal salario, Setor setor) {

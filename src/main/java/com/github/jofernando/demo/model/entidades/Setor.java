@@ -16,6 +16,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 public class Setor extends Entidade {
 
+    private static final long serialVersionUID = 1L;
     private String nome;
 
     @Column(unique = true)
