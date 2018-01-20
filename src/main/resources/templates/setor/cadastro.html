@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>a</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0-beta.3/css/bootstrap.min.css}"/>
+    </head>
+    <body>
+
+        <div th:replace="menu :: menu"></div>
+
+        <form class="container" method="POST" action="#" th:action="@{/setor}" th:object="${setor}">
+            <div class="alert alert-success" th:text="${sucesso}" th:if="${not #strings.isEmpty(sucesso)}"></div>
+            <div class="alert alert-danger" th:text="${erro}" th:if="${not #strings.isEmpty(erro)}"></div>
+            <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                <div th:each="detailedError : ${#fields.detailedErrors()}">
+                    <span th:text="${detailedError.message}"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label th:classappend="${#fields.hasErrors('nome')} ? text-danger" for="nome">Nome</label>
+                <input th:classappend="${#fields.hasErrors('nome')} ? is-invalid" th:field="*{nome}" type="text" id="nome" name="nome" value="" placeholder="Nome" class="form-control"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" th:href="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" th:href="@{/webjars/bootstrap/4.0.0-beta.3/js/bootstrap.min.js}"></script>
+    </body>
+</html>

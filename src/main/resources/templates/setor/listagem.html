@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>a</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0-beta.3/css/bootstrap.min.css}"/>
+    </head>
+    <body>
+
+        <div th:replace="menu :: menu"></div>
+
+        <div class="container-fluid">
+            <div class="alert alert-success" th:text="${sucesso}" th:if="${not #strings.isEmpty(sucesso)}"></div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="setor : ${setores}">
+                        <td th:text="${setor.nome}">Nome</td>
+                        <td>
+                            <form action="#" method="POST" th:action="@{/setor/{id}(id=${setor.id})}">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <button type="submit" class="btn btn-danger">
+                                    <span>Deletar</span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" th:href="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" th:href="@{/webjars/bootstrap/4.0.0-beta.3/js/bootstrap.min.js}"></script>
+    </body>
+</html>

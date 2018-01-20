@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>a</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0-beta.3/css/bootstrap.min.css}"/>
+        <!--<script type="text/javascript" src="https://cdnjs.com/libraries/jquery.mask"></script>-->
+    </head>
+    <body>
+
+        <div th:replace="menu :: menu"></div>
+
+        <form class="container" method="POST" action="#" th:action="@{/empregado}" th:object="${empregado}">
+            <div class="alert alert-success" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
+            <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                <div th:each="detailedError : ${#fields.detailedErrors()}">
+                    <span th:text="${detailedError.message}"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nome" th:classappend="${#fields.hasErrors('nome')} ? text-danger">Nome</label>
+                <input th:classappend="${#fields.hasErrors('nome')} ? is-invalid" th:field="*{nome}" type="text" name="nome" id="nome" placeholder="Nome" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="cpf" th:classappend="${#fields.hasErrors('cpf')} ? text-danger">CPF</label>
+                <input th:classappend="${#fields.hasErrors('cpf')} ? is-invalid" th:field="*{cpf}" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" type="text" id="cpf" placeholder="CPF" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="email" th:classappend="${#fields.hasErrors('email')} ? text-danger">Email</label>
+                <input th:classappend="${#fields.hasErrors('email')} ? is-invalid" th:field="*{email}" type="email" id="email" placeholder="Email" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="salario" th:classappend="${#fields.hasErrors('salario')} ? text-danger">Salário</label>
+                <input th:classappend="${#fields.hasErrors('salario')} ? is-invalid" th:field="*{salario}" type="number" id="salario" placeholder="Salário" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="setor" th:classappend="${#fields.hasErrors('setor')} ? text-danger">Setor</label>
+                <div class="form-group">
+                    <select th:classappend="${#fields.hasErrors('setor')} ? is-invalid" th:field="*{setor}" id="setor" name="setor" class="custom-select">
+                        <option value="" >Selecione um setor</option>
+                        <option value="" th:each="setor : ${setores}" th:value="${{setor}}" th:text="${setor.nome}">One</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" th:href="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" th:href="@{/webjars/bootstrap/4.0.0-beta.3/js/bootstrap.min.js}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.13/jquery.mask.min.js"></script>
+        <script>
+//Mascara CPF
+$(document).ready(function () {
+    $('#cpf').mask('999.999.999-99');
+});
+        </script>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>a</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0-beta.3/css/bootstrap.min.css}"/>
+    </head>
+    <body>
+        <div th:fragment="menu" >
+            <nav class="navbar navbar-expand-md navbar-light bg-light">
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Empregado
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="/empregado/">Cadastro</a>
+                                <a class="dropdown-item" href="/empregado/list">Listagem</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Setor
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="/setor/">Cadastro</a>
+                                <a class="dropdown-item" href="/setor/list">Listagem</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" th:href="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" th:href="@{/webjars/bootstrap/4.0.0-beta.3/js/bootstrap.min.js}"></script>
+    </body>
+</html>

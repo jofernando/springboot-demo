@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>a</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0-beta.3/css/bootstrap.min.css}"/>
+    </head>
+    <body>
+
+        <div th:replace="menu :: menu"></div>
+
+        <div class="container-fuild">
+            <div class="alert alert-success" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Salário</th>
+                        <th scope="col">Setor</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="empregado : ${empregados}">
+                        <td th:text="${empregado.nome}">Nome</td>
+                        <td th:text="${empregado.cpf}">CPF</td>
+                        <td th:text="${empregado.email}">Email</td>
+                        <td th:text="${empregado.salario}">Salário</td>
+                        <td th:text="${empregado.setor.nome}">Setor</td>
+                        <td>
+                            <div class="btn-group">
+                                <form action="#" method="POST" th:action="@{/empregado/{id}(id=${empregado.id})}">
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                    <button type="submit" class="btn btn-danger">
+                                        <span>Deletar</span>
+                                    </button>
+
+                                </form>
+                                <a href="#" th:href="@{/empregado/{id}(id=${empregado.id})}" class="btn btn-info">Visualizar</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" th:href="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" th:href="@{/webjars/bootstrap/4.0.0-beta.3/js/bootstrap.min.js}"></script>
+    </body>
+</html>
