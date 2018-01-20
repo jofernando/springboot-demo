@@ -33,16 +33,13 @@
                         <td th:text="${empregado.salario}">Salário</td>
                         <td th:text="${empregado.setor.nome}">Setor</td>
                         <td>
-                            <div class="btn-group">
-                                <form action="#" method="POST" th:action="@{/empregado/{id}(id=${empregado.id})}">
-                                    <input type="hidden" name="_method" value="DELETE" />
-                                    <button type="submit" class="btn btn-danger">
-                                        <span>Deletar</span>
-                                    </button>
-
-                                </form>
-                                <a href="#" th:href="@{/empregado/{id}(id=${empregado.id})}" class="btn btn-info">Visualizar</a>
-                            </div>
+                            <form action="#" method="POST" th:action="@{/empregado/{id}(id=${empregado.id})}">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-danger">Deletar</button>
+                                    <a href="#" th:href="@{/empregado/{id}(id=${empregado.id})}" class="btn btn-info">Visualizar</a>
+                                </div>
+                            </form>
                         </td>
                     </tr>
                 </tbody>
